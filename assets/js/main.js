@@ -1,6 +1,8 @@
 let output = document.querySelector(".output");
 let tableInfo = document.querySelector(".tableinfo");
 let checkBtn = document.querySelector("#check-weather");
+let cityOutput = document.querySelector(".cityoutput");
+
 console.log(output);
 const API_key = "47535d7b3bea3486960efb7de6cf3ff3";
 /* fetch(
@@ -61,21 +63,48 @@ const fetchweather = (event) => {
         .then((nowWeatherData) => {
           console.log(nowWeatherData);
 
+          let sunrisemilis = nowWeatherData.sys.sunrise;
+
+          let date10 = new Date(sunrisemilis);
+          let sunrise = date10.toLocaleTimeString();
+
+          console.log(sunrise);
+
+          let sunsetemilis = nowWeatherData.sys.sunset;
+
+          let date11 = new Date(sunsetemilis);
+          let sunset = date11.toLocaleTimeString();
+
+          console.log(sunset);
+
+          let iconVar = `https://openweathermap.org/img/wn/`;
+
+          console.log(nowWeatherData.weather[0].icon);
+
           let date = new Date().toLocaleTimeString();
-          console.log(date);
 
-          output.innerHTML += `<h3> Weather in : ${textInput.toUpperCase()}.</h3>
-          <p>${nowWeatherData.sys.country} </p> 
-          <p>${nowWeatherData.weather[0].icon}<P>
-          <p>${nowWeatherData.main.temp}</p>
-          <p>${nowWeatherData.weather[0].description}<P>
-          `;
+          cityOutput.innerHTML = `<h3> Weather in ${textInput.toUpperCase()}</h3>`;
+          cityOutput.innerHTML += `<p class="icon"><img src="${iconVar}${nowWeatherData.weather[0].icon}@2x.png"><P>`;
 
-          tableInfo.innerHTML += `<p>local Time :  ${date} </p>
-          <p>WindSpeed: ${nowWeatherData.wind.speed}</p>
-          <p>Cloudiness: ${nowWeatherData.weather[0].description}</p>
-          <p>Pressure: ${nowWeatherData.main.pressure}  hpa </p>
-          `;
-        });
-    });
+          output.innerHTML += `<div class="top">
+          <p class="country">${nowWeatherData.sys.country} </p> 
+          <p class="time"> local Time : ${date} </p>
+
+          <p class="temp">${nowWeatherData.main.temp}° </p>
+          <p class="description">${nowWeatherData.weather[0].description}<P>
+          </div>`;
+
+          tableInfo.innerHTML += `<div class="bottom"><br>
+          
+          <p class="wind"> WindSpeed: ${nowWeatherData.wind.speed}</p>
+         
+          <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa </p>
+          <p class="sunrise"> Sunrise: ${sunrise}</p>
+          <p class="sunset"> Sunset: ${sunset}</p>
+
+          </div>`;
+        })
+        .catch((error) => console.log("fehler im innenfetch", error));
+    })
+    .catch((error) => console.log("fehler im hauptfetch", error));
 };
