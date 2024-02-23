@@ -73,18 +73,44 @@ const fetchweather = (event) => {
           console.log(nowWeatherData);
 
           let sunrisemilis = nowWeatherData.sys.sunrise;
+          let sunrise = new Date(
+            (sunrisemilis + nowWeatherData.timezone) * 1000
+          ); /* .toUTCString() */
+          //--------to utcstring geaddet----
+          let sunriseSpliced = sunrise.slice(-12, -7);
+          console.log(sunriseSpliced);
 
-          let date10 = new Date(sunrisemilis);
-          let sunrise = date10.toLocaleTimeString();
-
+          /* 
           console.log(sunrise);
+          let sunriseHour = sunrise.getHours();
+          console.log(sunriseHour);
+          let sunriseMin = sunrise.getMinutes();
+          console.log(sunriseMin);
+          let sunriseSek = sunrise.getSeconds();
+          console.log(sunriseSek); */
+
+          /*    let sunrise = date10.toLocaleTimeString(); */
 
           let sunsetemilis = nowWeatherData.sys.sunset;
+          let sunset = new Date(
+            (sunsetemilis + nowWeatherData.timezone) * 1000
+          );
+          let sunsetSpliced = sunset.slice(-12, -7);
+          console.log(sunsetSpliced);
 
-          let date11 = new Date(sunsetemilis);
-          let sunset = date11.toLocaleTimeString();
+          /*    console.log(sunset);
+          let sunsetHour = sunset.getHours();
+          console.log(sunsetHour);
+          let sunsetMin = sunset.getMinutes();
+          console.log(sunsetMin);
+          let sunsetSek = sunset.getSeconds();
+          console.log(sunsetSek);
+ */
 
-          console.log(sunset);
+          /*    let sunset = date11.toLocaleTimeString(); */
+
+          let timezone = nowWeatherData.timezone;
+          console.log(timezone);
 
           let iconVar = `https://openweathermap.org/img/wn/`;
 
@@ -97,9 +123,9 @@ const fetchweather = (event) => {
 
           output.innerHTML += `<div class="top">
               <p class="country">${nowWeatherData.sys.country} </p> 
-              <p class="time"> local Time : ${date} </p>
+              <p class="time"> Local Time : ${date} </p>
               
-              <p class="temp">${nowWeatherData.main.temp}° </p>
+              <p class="temp"> Temperature: ${nowWeatherData.main.temp}°C </p>
               <p class="description">${nowWeatherData.weather[0].description}<P>
               </div>`;
 
@@ -107,9 +133,9 @@ const fetchweather = (event) => {
               
               <p class="wind"> WindSpeed: ${nowWeatherData.wind.speed} km/h </p>
               
-              <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa </p>
-              <p class="sunrise"> Sunrise: ${sunrise}</p>
-              <p class="sunset"> Sunset: ${sunset}</p>
+              <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa</p>
+              <p class="sunrise"> Sunrise: ${sunriseSpliced}</p>
+              <p class="sunset"> Sunset: ${sunsetSpliced}</p>
               
               </div>`;
         })
