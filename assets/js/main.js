@@ -109,6 +109,7 @@ const fetchweather = (event) => {
           console.log(nowWeatherData.weather[0].icon);
 
           let date = new Date().toLocaleTimeString();
+          console.log(date);
 
           cityOutput.innerHTML = `<h3> Weather in ${textInput.toUpperCase()}</h3>`;
           cityOutput.innerHTML += `<p class="icon"><img src="${iconVar}${nowWeatherData.weather[0].icon}@2x.png"><P>`;

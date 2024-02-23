@@ -74,6 +74,7 @@ form {
   border-style: hidden;
   color: white;
   cursor: pointer;
+  opacity: 0.8;
 }
 .result {
   display: flex;
@@ -94,6 +95,7 @@ form {
   background-color: #023047;
   border-radius: 20px;
   margin-bottom: 3vw;
+  opacity: 0.8;
 }
 .bottom {
   display: flex;
@@ -107,4 +109,5 @@ form {
   border-radius: 30px;
   padding: 1vw 3vw;
   margin-bottom: 3vw;
+  opacity: 0.8;
 }
