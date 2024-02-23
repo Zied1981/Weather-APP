@@ -51,6 +51,7 @@ form {
   border-style: hidden;
   border-radius: 30px;
   font-size: 25px;
+  font-weight: bold;
   text-align: center;
   background-color: #ffb703;
   color: black;
@@ -66,6 +67,7 @@ form {
   background-color: #023047;
   border-style: hidden;
   color: white;
+  cursor: pointer;
 }
 .result {
   display: flex;

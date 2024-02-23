@@ -4,7 +4,11 @@ let checkBtn = document.querySelector("#check-weather");
 let cityOutput = document.querySelector(".cityoutput");
 
 console.log(output);
-const API_key = "47535d7b3bea3486960efb7de6cf3ff3";
+console.log(tableInfo);
+console.log(checkBtn);
+console.log(cityOutput);
+
+const api_key = "47535d7b3bea3486960efb7de6cf3ff3";
 /* fetch(
   `https://api.openweathermap.org/data/2.5/weather?lat=52.520008&lon=13.404954&appid=47535d7b3bea3486960efb7de6cf3ff3&units=metric&lang=de`
 )
@@ -41,6 +45,11 @@ const fetchweather = (event) => {
 
   const textInput = document.querySelector("#city").value;
   console.log(textInput);
+  if (textInput.length <= 0) {
+    console.log("test");
+    cityOutput.innerHTML = `<h3>Please give a City name!</h3>`;
+    return;
+  }
 
   fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${textInput}&limit=50&appid=47535d7b3bea3486960efb7de6cf3ff3`
@@ -87,22 +96,22 @@ const fetchweather = (event) => {
           cityOutput.innerHTML += `<p class="icon"><img src="${iconVar}${nowWeatherData.weather[0].icon}@2x.png"><P>`;
 
           output.innerHTML += `<div class="top">
-          <p class="country">${nowWeatherData.sys.country} </p> 
-          <p class="time"> local Time : ${date} </p>
-
-          <p class="temp">${nowWeatherData.main.temp}° </p>
-          <p class="description">${nowWeatherData.weather[0].description}<P>
-          </div>`;
+              <p class="country">${nowWeatherData.sys.country} </p> 
+              <p class="time"> local Time : ${date} </p>
+              
+              <p class="temp">${nowWeatherData.main.temp}° </p>
+              <p class="description">${nowWeatherData.weather[0].description}<P>
+              </div>`;
 
           tableInfo.innerHTML += `<div class="bottom"><br>
-          
-          <p class="wind"> WindSpeed: ${nowWeatherData.wind.speed}</p>
-         
-          <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa </p>
-          <p class="sunrise"> Sunrise: ${sunrise}</p>
-          <p class="sunset"> Sunset: ${sunset}</p>
-
-          </div>`;
+              
+              <p class="wind"> WindSpeed: ${nowWeatherData.wind.speed} km/h </p>
+              
+              <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa </p>
+              <p class="sunrise"> Sunrise: ${sunrise}</p>
+              <p class="sunset"> Sunset: ${sunset}</p>
+              
+              </div>`;
         })
         .catch((error) => console.log("fehler im innenfetch", error));
     })
