@@ -75,39 +75,31 @@ const fetchweather = (event) => {
           let sunrisemilis = nowWeatherData.sys.sunrise;
           let sunrise = new Date(
             (sunrisemilis + nowWeatherData.timezone) * 1000
-          ); /* .toUTCString() */
-          //--------to utcstring geaddet----
-          let sunriseSpliced = sunrise.slice(-12, -7);
-          console.log(sunriseSpliced);
-
-          /* 
+          );
           console.log(sunrise);
+
           let sunriseHour = sunrise.getHours();
           console.log(sunriseHour);
           let sunriseMin = sunrise.getMinutes();
           console.log(sunriseMin);
-          let sunriseSek = sunrise.getSeconds();
-          console.log(sunriseSek); */
-
-          /*    let sunrise = date10.toLocaleTimeString(); */
 
           let sunsetemilis = nowWeatherData.sys.sunset;
           let sunset = new Date(
             (sunsetemilis + nowWeatherData.timezone) * 1000
           );
-          let sunsetSpliced = sunset.slice(-12, -7);
-          console.log(sunsetSpliced);
 
-          /*    console.log(sunset);
+          console.log(sunset);
           let sunsetHour = sunset.getHours();
           console.log(sunsetHour);
+
           let sunsetMin = sunset.getMinutes();
           console.log(sunsetMin);
-          let sunsetSek = sunset.getSeconds();
-          console.log(sunsetSek);
- */
 
-          /*    let sunset = date11.toLocaleTimeString(); */
+          let sunriseFinal = sunriseMin < 10 ? `0${sunriseMin}` : sunriseMin;
+          console.log(sunriseFinal);
+
+          let sunsetFinal = sunsetMin < 10 ? `0${sunsetMin}` : sunsetMin;
+          console.log(sunsetFinal);
 
           let timezone = nowWeatherData.timezone;
           console.log(timezone);
@@ -134,8 +126,10 @@ const fetchweather = (event) => {
               <p class="wind"> WindSpeed: ${nowWeatherData.wind.speed} km/h </p>
               
               <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa</p>
-              <p class="sunrise"> Sunrise: ${sunriseSpliced}</p>
-              <p class="sunset"> Sunset: ${sunsetSpliced}</p>
+            
+               <p class="sunrise"> Sunrise: 0${sunriseHour}:${sunriseFinal}</p>
+               <p class="sunset"> Sunset: ${sunsetHour}:${sunsetFinal}</p>
+            
               
               </div>`;
         })
@@ -143,3 +137,6 @@ const fetchweather = (event) => {
     })
     .catch((error) => console.log("fehler im hauptfetch", error));
 };
+
+{
+}

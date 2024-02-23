@@ -8,6 +8,9 @@ html {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 62.5%;
 }
+img {
+  max-width: 100%;
+}
 h1 {
   font-size: clamp(7rem, 8vw, 9rem);
   color: #ffb703;
@@ -27,9 +30,12 @@ h3 {
 }
 
 .app {
-  background-color: #219ebc;
+  /*  background-color: #219ebc; */
+  background: url(../img/beautiful-mountains_181624-389.avif) center no-repeat;
+  background-size: cover;
+
   max-width: 80%;
-  min-height: 70vw;
+  min-height: 100%;
   margin: auto;
   margin-top: 7vw;
   border-radius: 40px;
