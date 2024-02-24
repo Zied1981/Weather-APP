@@ -46,7 +46,7 @@ const fetchweather = (event) => {
   const textInput = document.querySelector("#city").value;
   console.log(textInput);
   if (textInput.length <= 0) {
-    console.log("test");
+    console.log("error");
     cityOutput.innerHTML = `<h3>Please give a City name!</h3>`;
     return;
   }
@@ -78,9 +78,9 @@ const fetchweather = (event) => {
           );
           console.log(sunrise);
 
-          let sunriseHour = sunrise.getHours();
+          let sunriseHour = sunrise.getUTCHours();
           console.log(sunriseHour);
-          let sunriseMin = sunrise.getMinutes();
+          let sunriseMin = sunrise.getUTCMinutes();
           console.log(sunriseMin);
 
           let sunsetemilis = nowWeatherData.sys.sunset;
@@ -89,10 +89,10 @@ const fetchweather = (event) => {
           );
 
           console.log(sunset);
-          let sunsetHour = sunset.getHours();
+          let sunsetHour = sunset.getUTCHours();
           console.log(sunsetHour);
 
-          let sunsetMin = sunset.getMinutes();
+          let sunsetMin = sunset.getUTCMinutes();
           console.log(sunsetMin);
 
           let sunriseFinal = sunriseMin < 10 ? `0${sunriseMin}` : sunriseMin;
@@ -108,15 +108,38 @@ const fetchweather = (event) => {
 
           console.log(nowWeatherData.weather[0].icon);
 
-          let date = new Date().toLocaleTimeString();
-          console.log(date);
+          /*    let date = new Date().toLocaleTimeString(); */
+
+          let dt = new Date(
+            (nowWeatherData.dt + nowWeatherData.timezone) * 1000
+          );
+          console.log(dt);
+
+          /* let dt2 = dt.slice(-48, -40);
+          console.log(dt2); */
+
+          let localStd =
+            dt.getUTCHours() - 1 < 10
+              ? `0${dt.getUTCHours()}`
+              : dt.getUTCHours();
+          let localMin =
+            dt.getUTCMinutes() < 10
+              ? `0${dt.getUTCMinutes()}`
+              : dt.getUTCMinutes();
+          let localSek =
+            dt.getUTCSeconds() < 10
+              ? `0${dt.getUTCSeconds()}`
+              : dt.getUTCSeconds();
+          console.log(localStd);
+          console.log(localMin);
+          console.log(localSek);
 
           cityOutput.innerHTML = `<h3> Weather in ${textInput.toUpperCase()}</h3>`;
           cityOutput.innerHTML += `<p class="icon"><img src="${iconVar}${nowWeatherData.weather[0].icon}@2x.png"><P>`;
 
           output.innerHTML += `<div class="top">
               <p class="country">${nowWeatherData.sys.country} </p> 
-              <p class="time"> Local Time : ${date} </p>
+              <p class="time"> Local Time: ${localStd}:${localMin}:${localSek} </p>
               
               <p class="temp"> Temperature: ${nowWeatherData.main.temp}°C </p>
               <p class="description">${nowWeatherData.weather[0].description}<P>
