@@ -14,33 +14,31 @@ img {
 h1 {
   font-size: clamp(4rem, 5vw, 6rem);
   color: #ffb703;
-  margin-bottom: 3vw;
+  margin-bottom: 2vw;
   text-align: center;
+  padding-top: 2vw;
 }
 
 h3 {
   font-size: clamp(2rem, 3vw, 4rem);
   color: #ffb703;
   text-align: center;
-  margin-bottom: 3vw;
 }
 .icon {
   text-align: center;
-  margin-bottom: 3vw;
 }
 
 .app {
-  /*  background-color: #219ebc; */
   background: url(../img/beautiful-mountains_181624-389.avif) center no-repeat;
   background-size: cover;
-
-  max-width: 80%;
+  max-width: 90%;
+  min-height: 100vw;
 
   margin: auto;
-  margin-top: 7vw;
+  margin-top: 3vw;
   border-radius: 40px;
-  border: 5px solid white;
-  padding-top: 2vw;
+
+  box-shadow: 10px 7px 5px black;
 }
 form {
   display: flex;
@@ -64,7 +62,7 @@ form {
 }
 #checkBtn {
   padding: 1vw 5vw;
-  margin-bottom: 2vw;
+  margin-bottom: 1vw;
 
   border: 5px solid white;
   border-radius: 20px;
@@ -80,34 +78,58 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5vw;
+  gap: 3vw;
 }
 
 .top {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+
   gap: 2vw;
   color: white;
-  font-size: clamp(2rem, 2.2vw, 3rem);
-  padding: 3vw;
+  font-size: clamp(1.6rem, 2.4vw, 2.6rem);
+  padding: 5vw 5vw;
   background-color: #023047;
   border-radius: 20px;
-  margin-bottom: 3vw;
+
   opacity: 0.5;
+  box-shadow: 5px 5px 3px black;
+}
+.top li {
+  margin-left: 2vw;
 }
 .bottom {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   gap: 2.5vw;
   color: white;
-  font-size: clamp(2rem, 2.2vw, 3rem);
+  font-size: clamp(1.6rem, 2.4vw, 2.6rem);
   background-color: #023047;
-  border-radius: 30px;
-  padding: 1vw 3vw;
-  margin-bottom: 3vw;
+  border-radius: 20px;
+  padding: 4.5vw 4vw;
+  margin-bottom: 1vw;
   opacity: 0.5;
+  box-shadow: 5px 5px 3px black;
+}
+.bottom li {
+  margin-left: 2vw;
+}
+
+.temp {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2vw;
+}
+.description {
+  text-align: center;
+  font-size: clamp(1.4rem, 2vw, 2.2rem);
+  font-weight: 300;
+  color: white;
+  margin-bottom: 8vw;
 }

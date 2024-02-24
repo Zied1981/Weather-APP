@@ -66,7 +66,7 @@ const fetchweather = (event) => {
       //fetch nummer2//
 
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=47535d7b3bea3486960efb7de6cf3ff3&units=metric&lang=de`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=47535d7b3bea3486960efb7de6cf3ff3&units=metric&lang=en`
       )
         .then((response) => response.json())
         .then((nowWeatherData) => {
@@ -108,6 +108,9 @@ const fetchweather = (event) => {
 
           console.log(nowWeatherData.weather[0].icon);
 
+          let temperaturefinal = Math.ceil(nowWeatherData.main.temp);
+          console.log(temperaturefinal);
+
           /*    let date = new Date().toLocaleTimeString(); */
 
           let dt = new Date(
@@ -134,33 +137,26 @@ const fetchweather = (event) => {
           console.log(localMin);
           console.log(localSek);
 
-          cityOutput.innerHTML = `<h3> Weather in ${textInput.toUpperCase()}</h3>`;
+          cityOutput.innerHTML = `<h3> Weather in ${textInput.toUpperCase()} (${
+            nowWeatherData.sys.country
+          }) </h3>`;
           cityOutput.innerHTML += `<p class="icon"><img src="${iconVar}${nowWeatherData.weather[0].icon}@2x.png"><P>`;
+          cityOutput.innerHTML += `<p class="temp">${temperaturefinal}°C</p>`;
+          cityOutput.innerHTML += `<p class="description">${nowWeatherData.weather[0].description}</p>`;
 
-          output.innerHTML += `<div class="top">
-              <p class="country">${nowWeatherData.sys.country} </p> 
-              <p class="time"> Local Time: ${localStd}:${localMin}:${localSek} </p>
-              
-              <p class="temp"> Temperature: ${nowWeatherData.main.temp}°C </p>
-              <p class="description">${nowWeatherData.weather[0].description}<P>
-              </div>`;
+          output.innerHTML += `<ul class="top">
+                <li class="time"> local time: ${localStd}:${localMin}:${localSek}</li>
+                <li class="sunrise"> sunrise: 0${sunriseHour}:${sunriseFinal}</li>
+                <li class="sunset"> sunset: ${sunsetHour}:${sunsetFinal}</li>
+            </ul>`;
 
-          tableInfo.innerHTML += `<div class="bottom"><br>
-              
-              <p class="wind"> WindSpeed: ${nowWeatherData.wind.speed} km/h </p>
-              
-              <p class="pressure"> Pressure: ${nowWeatherData.main.pressure} hpa</p>
-            
-               <p class="sunrise"> Sunrise: 0${sunriseHour}:${sunriseFinal}</p>
-               <p class="sunset"> Sunset: ${sunsetHour}:${sunsetFinal}</p>
-            
-              
-              </div>`;
+          tableInfo.innerHTML += `<ul class="bottom">
+                <li class="wind"> windspeed: ${nowWeatherData.wind.speed} km/h </li>
+                <li class="wind"> humidity: ${nowWeatherData.main.humidity}% </li>
+                 <li class="pressure"> pressure: ${nowWeatherData.main.pressure} hpa</li>
+            </ul>`;
         })
         .catch((error) => console.log("fehler im innenfetch", error));
     })
     .catch((error) => console.log("fehler im hauptfetch", error));
 };
-
-{
-}
