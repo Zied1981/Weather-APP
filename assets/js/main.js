@@ -2,6 +2,7 @@ let output = document.querySelector(".output");
 let tableInfo = document.querySelector(".tableinfo");
 let checkBtn = document.querySelector("#check-weather");
 let cityOutput = document.querySelector(".cityoutput");
+let bottomBoxOutput = document.querySelector(".bottom_box");
 
 console.log(output);
 console.log(tableInfo);
@@ -9,39 +10,14 @@ console.log(checkBtn);
 console.log(cityOutput);
 
 const api_key = "47535d7b3bea3486960efb7de6cf3ff3";
-/* fetch(
-  `https://api.openweathermap.org/data/2.5/weather?lat=52.520008&lon=13.404954&appid=47535d7b3bea3486960efb7de6cf3ff3&units=metric&lang=de`
-)
-  .then((response) => response.json())
-  .then((newArray) => {
-    console.log(newArray);
-    let date = new Date().toLocaleTimeString();
-    console.log(date);
-
-    output.innerHTML += `<h3> Weather in Berlin </h3>
-        <p>${newArray.sys.country} </p> 
-        <p>${newArray.weather[0].icon}<P>
-        <p>${newArray.main.temp}</p>
-        <p>${newArray.weather[0].description}<P>
-        `;
-
-    tableInfo.innerHTML += `<p>local Time :  ${date} </p>
-        <p>WindSpeed: ${newArray.wind.speed}</p>
-        <p>Cloudiness: ${newArray.weather[0].description}</p>
-        <p>Pressure: ${newArray.main.pressure}  hpa </p>
-        
-        
-        
-        
-        
-        `;
-  })
-  .catch((error) => console.log("fehler im hauptfetch", error)); */
 
 const fetchweather = (event) => {
   event.preventDefault();
   output.innerHTML = "";
   tableInfo.innerHTML = "";
+  cityOutput.innerHTML = "";
+  bottomBoxOutput.innerHTML = "";
+  bottomBoxOutput.style.display = "flex";
 
   const textInput = document.querySelector("#city").value;
   console.log(textInput);
@@ -155,8 +131,79 @@ const fetchweather = (event) => {
                 <li class="wind"> humidity: ${nowWeatherData.main.humidity}% </li>
                  <li class="pressure"> pressure: ${nowWeatherData.main.pressure} hpa</li>
             </ul>`;
+        });
+      fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=47535d7b3bea3486960efb7de6cf3ff3&units=metric&lang=en`
+      )
+        .then((resp) => resp.json())
+        .then((forecastDT) => {
+          console.log(forecastDT);
+
+          forecastDT.list.forEach((items) => {
+            //firstday rausholen/ indemfall den montag forcast
+
+            let firstDay = new Date(items.dt_txt);
+            console.log(firstDay);
+            let firstDayFinal = firstDay.toLocaleString("default", {
+              weekday: "short",
+            });
+            console.log(firstDayFinal);
+            let firstDayBox = document.createElement("div");
+            let firstdayOutput = document.createElement("p");
+            firstdayOutput.textContent = firstDayFinal;
+
+            console.log(firstDayBox);
+            //jetzt muss der icon für den firstday auch geholt werden
+
+            let firstDayIcon = document.createElement("img");
+            console.log(firstDayIcon);
+            let iconVar1 = `https://openweathermap.org/img/wn/`;
+            firstDayIcon.src = `${iconVar1}${items.weather[0].icon}@2x.png`;
+
+            //jetzt muss die temperature geholt werden
+
+            let firstDaytemp = items.main.temp;
+            console.log(firstDaytemp);
+            let firstDaytempfinal = Math.round(firstDaytemp);
+
+            console.log(firstDaytempfinal);
+            let firstDaytempOutput = document.createElement("p");
+            firstDaytempOutput.textContent = firstDaytempfinal + "°";
+            console.log(firstDaytempOutput);
+
+            console.log(firstDayBox);
+
+            console.log(items);
+            console.log(items.dt_txt);
+
+            let textsliced = items.dt_txt.slice(-8, -3);
+            console.log(textsliced);
+            let newDateDate = new Date();
+            console.log(newDateDate);
+            let localDatestring = newDateDate.toLocaleDateString();
+            console.log(localDatestring);
+            let nowYear = newDateDate.getFullYear();
+            console.log(nowYear);
+            let nowMonth = newDateDate.getMonth();
+            console.log(nowMonth);
+            let nowDay = newDateDate.getDate();
+            console.log(nowDay);
+
+            let datumslice = items.dt_txt.slice(-11, -9);
+            console.log(datumslice);
+
+            if (textsliced.includes(12) && datumslice !== nowDay) {
+              console.log("yyy");
+              firstDayBox.appendChild(firstdayOutput);
+              firstDayBox.appendChild(firstDayIcon);
+              firstDayBox.appendChild(firstDaytempOutput);
+              bottomBoxOutput.appendChild(firstDayBox);
+            }
+          });
         })
+
         .catch((error) => console.log("fehler im innenfetch", error));
     })
+
     .catch((error) => console.log("fehler im hauptfetch", error));
 };
